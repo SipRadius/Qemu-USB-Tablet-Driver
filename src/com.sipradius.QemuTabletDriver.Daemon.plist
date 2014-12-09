@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>Label</key>
+        <string>com.sipradius.QemuTabletDriver.Daemon</string>
+        <key>RunAtLoad</key>
+        <true/>
+        <key>KeepAlive</key>
+        <false/>
+        <key>ProgramArguments</key>
+        <array>
+            <string>/usr/bin/Qemu Tablet Driver</string>
+            <string>0x627</string>
+            <string>0x1</string>
+        </array>
+</dict>
+</plist>
