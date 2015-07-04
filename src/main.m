@@ -643,6 +643,11 @@ int main (int argc, const char * argv[])
         return 1;
     }
 
+    if (!CGMainDisplayID()) {
+        fprintf(stderr, "No display found\n");
+        return 1;
+    }
+
     gLock = [[NSLock alloc] init];
     InitHIDNotifications(vid, pid);
     CFRunLoopRun();

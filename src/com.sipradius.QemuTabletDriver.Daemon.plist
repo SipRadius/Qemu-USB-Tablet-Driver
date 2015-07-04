@@ -7,7 +7,10 @@
         <key>RunAtLoad</key>
         <true/>
         <key>KeepAlive</key>
-        <false/>
+        <dict>
+                <key>SuccessfulExit</key>
+                <false/>
+        </dict>
         <key>ProgramArguments</key>
         <array>
             <string>/usr/bin/Qemu Tablet Driver</string>
