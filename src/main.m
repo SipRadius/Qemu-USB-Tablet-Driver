@@ -61,6 +61,7 @@ static void Click(int button, int x, int y, ButtonState state)
 {
     static int eventNumber[3];
     static uint64_t last_click[3];
+    static bool button_pressed[3];
 
     static const CGEventType type[3][2] = {
         { [DOWN] = kCGEventLeftMouseDown,
@@ -71,8 +72,14 @@ static void Click(int button, int x, int y, ButtonState state)
           [UP]   = kCGEventOtherMouseUp, },
     };
 
+    static const int mouse_drag_events[3] = {
+        kCGEventLeftMouseDragged,
+        kCGEventRightMouseDragged,
+        kCGEventOtherMouseDragged
+    };
+
     CGEventRef move = CGEventCreateMouseEvent(NULL,
-            (state == NO_CHANGE) ? kCGEventMouseMoved : type[button][state],
+            (state == NO_CHANGE) ? ( button_pressed[button] ? mouse_drag_events[button] : kCGEventMouseMoved ) : type[button][state],
             CGPointMake(x, y), button);
     CGEventSetIntegerValueField(move, kCGMouseEventNumber, eventNumber[button]);
     if (state == UP) {
@@ -86,6 +93,10 @@ static void Click(int button, int x, int y, ButtonState state)
         if (now - last_click[button] < 1000000 * clickTime)
             CGEventSetIntegerValueField(move, kCGMouseEventClickState, 2);
         last_click[button] = now;
+        button_pressed[button] = false;
+    }
+    else if (state == DOWN) {
+        button_pressed[button] = true;
     }
 
     CGEventPost(kCGHIDEventTap, move);
